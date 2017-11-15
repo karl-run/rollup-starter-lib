@@ -1,14 +1,16 @@
-export default function getNextLunchtime (hours, minutes) {
-	var lunchtime = new Date();
+// @flow
 
-	lunchtime.setHours(hours);
-	lunchtime.setMinutes(minutes);
-	lunchtime.setSeconds(0);
-	lunchtime.setMilliseconds(0);
+export default function getNextLunchtime(hours: number, minutes: number): Date {
+  const lunchtime = new Date();
 
-	// if we've already had lunch today, start planning
-	// tomorrow's lunch
-	if (lunchtime < Date.now()) lunchtime.setDate(lunchtime.getDate() + 1);
+  lunchtime.setHours(hours);
+  lunchtime.setMinutes(minutes);
+  lunchtime.setSeconds(0);
+  lunchtime.setMilliseconds(0);
 
-	return lunchtime;
+  // if we've already had lunch today, start planning
+  // tomorrow's lunch
+  if (lunchtime < Date.now()) lunchtime.setDate(lunchtime.getDate() + 1);
+
+  return lunchtime;
 }
