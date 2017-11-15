@@ -1,12 +1,10 @@
-# rollup-starter-lib
+# rollup-starter-lib-react
 
 This repo contains a bare-bones example of how to create a library using Rollup, including importing a module from `node_modules` and converting it from CommonJS.
 
-We're creating a library called `how-long-till-lunch`, which usefully tells us how long we have to wait until lunch, using the [ms](https://github.com/zeit/ms) package:
+Note: This is a fork of [rollup/rollup-starter-lib](https://github.com/rollup/rollup-starter-lib) that adds support for creating React-components using rollup. If you want to create normal pure JS components please use the original project.
 
-```js
-console.log('it will be lunchtime in ' + howLongTillLunch());
-```
+We're creating a library called `how-long-till-lunch`, which usefully tells us how long we have to wait until lunch in a simple ugly React component. Enough to get you started!
 
 ## Getting started
 
@@ -32,14 +30,6 @@ npm install
 `npm test` builds the library, then tests it.
 
 *Note that you would often include the `dist` folder in your [.gitignore](https://github.com/rollup/rollup-starter-lib/blob/master/.gitignore) file, but they are included here for ease of illustration.*
-
-
-## Variations
-
-* [babel](https://github.com/rollup/rollup-starter-lib/tree/babel) — illustrates writing the source code in ES2015 and transpiling it for older environments with [Babel](https://babeljs.io/)
-* [buble](https://github.com/rollup/rollup-starter-lib/tree/buble) — similar, but using [Bublé](https://buble.surge.sh/) which is a faster alternative with less configuration
-
-
 
 ## License
 
