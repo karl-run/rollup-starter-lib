@@ -31,6 +31,10 @@ npm install
 
 *Note that you would often include the `dist` folder in your [.gitignore](https://github.com/rollup/rollup-starter-lib/blob/master/.gitignore) file, but they are included here for ease of illustration.*
 
+## Alternative
+
+If you want eslint, jest, storybook, flow and all that good stuff, check out the alternative branch [extended-tooling](https://github.com/karl-run/rollup-starter-lib-react/tree/extended-tooling) which has all that configured.
+
 ## License
 
 [MIT](LICENSE).
