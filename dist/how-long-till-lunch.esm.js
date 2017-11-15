@@ -1,6 +1,24 @@
-import ms from 'ms';
+function __$styleInject(css, returnValue) {
+  if (typeof document === 'undefined') {
+    return returnValue;
+  }
+  css = css || '';
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  head.appendChild(style);
+  
+  if (style.styleSheet){
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+  return returnValue;
+}
 
-function getNextLunchtime (hours, minutes) {
+import React from 'react';
+
+function getNextLunchtime(hours, minutes) {
 	var lunchtime = new Date();
 
 	lunchtime.setHours(hours);
@@ -19,13 +37,23 @@ function millisecondsUntil(date) {
 	return date - Date.now();
 }
 
-function howLongUntilLunch(hours, minutes) {
-	// lunch is at 12.30
+var style = __$styleInject("._goodLunch_3i4wk_1 {\r\n  width: 100px;\r\n  box-shadow: 2px 2px 3px black;\r\n  background-color: hotpink;\r\n}", { "goodLunch": "_goodLunch_3i4wk_1" });
+
+var HowLongTillLunch = function HowLongTillLunch(_ref) {
+	var hours = _ref.hours,
+	    minutes = _ref.minutes;
+
 	if (hours === undefined) hours = 12;
 	if (minutes === undefined) minutes = 30;
 
 	var millisecondsUntilLunchTime = millisecondsUntil(getNextLunchtime(hours, minutes));
-	return ms(millisecondsUntilLunchTime, { long: true });
-}
 
-export default howLongUntilLunch;
+	return React.createElement(
+		'div',
+		{ className: style.goodLunch },
+		millisecondsUntilLunchTime / 1000,
+		' seconds'
+	);
+};
+
+export default HowLongTillLunch;

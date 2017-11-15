@@ -1,12 +1,18 @@
-import ms from 'ms';
+import React from 'react';
 import lunchtime from './lunchtime.js';
 import millisecondsUntil from './millisecondsUntil.js';
 
-export default function howLongUntilLunch(hours, minutes) {
-	// lunch is at 12.30
+import style from './main.scss';
+
+const HowLongTillLunch = ({ hours, minutes }) => {
 	if (hours === undefined) hours = 12;
 	if (minutes === undefined) minutes = 30;
 
-	var millisecondsUntilLunchTime = millisecondsUntil(lunchtime(hours, minutes));
-	return ms(millisecondsUntilLunchTime, { long: true });
-}
+	const millisecondsUntilLunchTime = millisecondsUntil(lunchtime(hours, minutes));
+
+	return (
+		<div className={style.goodLunch}>{millisecondsUntilLunchTime / 1000} seconds</div>
+	)
+};
+
+export default HowLongTillLunch;

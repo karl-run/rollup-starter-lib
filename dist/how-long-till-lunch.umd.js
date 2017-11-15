@@ -1,163 +1,30 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.howLongUntilLunch = factory());
-}(this, (function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react')) :
+	typeof define === 'function' && define.amd ? define(['react'], factory) :
+	(global.howLongUntilLunchReact = factory(global.React));
+}(this, (function (React) { 'use strict';
 
-/**
- * Helpers.
- */
-
-var s = 1000;
-var m = s * 60;
-var h = m * 60;
-var d = h * 24;
-var y = d * 365.25;
-
-/**
- * Parse or format the given `val`.
- *
- * Options:
- *
- *  - `long` verbose formatting [false]
- *
- * @param {String|Number} val
- * @param {Object} [options]
- * @throws {Error} throw an error if val is not a non-empty string or a number
- * @return {String|Number}
- * @api public
- */
-
-var index = function(val, options) {
-  options = options || {};
-  var type = typeof val;
-  if (type === 'string' && val.length > 0) {
-    return parse(val);
-  } else if (type === 'number' && isNaN(val) === false) {
-    return options.long ? fmtLong(val) : fmtShort(val);
+function __$styleInject(css, returnValue) {
+  if (typeof document === 'undefined') {
+    return returnValue;
   }
-  throw new Error(
-    'val is not a non-empty string or a valid number. val=' +
-      JSON.stringify(val)
-  );
-};
-
-/**
- * Parse the given `str` and return milliseconds.
- *
- * @param {String} str
- * @return {Number}
- * @api private
- */
-
-function parse(str) {
-  str = String(str);
-  if (str.length > 100) {
-    return;
+  css = css || '';
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+  head.appendChild(style);
+  
+  if (style.styleSheet){
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
   }
-  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(
-    str
-  );
-  if (!match) {
-    return;
-  }
-  var n = parseFloat(match[1]);
-  var type = (match[2] || 'ms').toLowerCase();
-  switch (type) {
-    case 'years':
-    case 'year':
-    case 'yrs':
-    case 'yr':
-    case 'y':
-      return n * y;
-    case 'days':
-    case 'day':
-    case 'd':
-      return n * d;
-    case 'hours':
-    case 'hour':
-    case 'hrs':
-    case 'hr':
-    case 'h':
-      return n * h;
-    case 'minutes':
-    case 'minute':
-    case 'mins':
-    case 'min':
-    case 'm':
-      return n * m;
-    case 'seconds':
-    case 'second':
-    case 'secs':
-    case 'sec':
-    case 's':
-      return n * s;
-    case 'milliseconds':
-    case 'millisecond':
-    case 'msecs':
-    case 'msec':
-    case 'ms':
-      return n;
-    default:
-      return undefined;
-  }
+  return returnValue;
 }
 
-/**
- * Short format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
+React = React && React.hasOwnProperty('default') ? React['default'] : React;
 
-function fmtShort(ms) {
-  if (ms >= d) {
-    return Math.round(ms / d) + 'd';
-  }
-  if (ms >= h) {
-    return Math.round(ms / h) + 'h';
-  }
-  if (ms >= m) {
-    return Math.round(ms / m) + 'm';
-  }
-  if (ms >= s) {
-    return Math.round(ms / s) + 's';
-  }
-  return ms + 'ms';
-}
-
-/**
- * Long format for `ms`.
- *
- * @param {Number} ms
- * @return {String}
- * @api private
- */
-
-function fmtLong(ms) {
-  return plural(ms, d, 'day') ||
-    plural(ms, h, 'hour') ||
-    plural(ms, m, 'minute') ||
-    plural(ms, s, 'second') ||
-    ms + ' ms';
-}
-
-/**
- * Pluralization helper.
- */
-
-function plural(ms, n, name) {
-  if (ms < n) {
-    return;
-  }
-  if (ms < n * 1.5) {
-    return Math.floor(ms / n) + ' ' + name;
-  }
-  return Math.ceil(ms / n) + ' ' + name + 's';
-}
-
-function getNextLunchtime (hours, minutes) {
+function getNextLunchtime(hours, minutes) {
 	var lunchtime = new Date();
 
 	lunchtime.setHours(hours);
@@ -176,15 +43,25 @@ function millisecondsUntil(date) {
 	return date - Date.now();
 }
 
-function howLongUntilLunch(hours, minutes) {
-	// lunch is at 12.30
+var style = __$styleInject("._goodLunch_3i4wk_1 {\r\n  width: 100px;\r\n  box-shadow: 2px 2px 3px black;\r\n  background-color: hotpink;\r\n}", { "goodLunch": "_goodLunch_3i4wk_1" });
+
+var HowLongTillLunch = function HowLongTillLunch(_ref) {
+	var hours = _ref.hours,
+	    minutes = _ref.minutes;
+
 	if (hours === undefined) hours = 12;
 	if (minutes === undefined) minutes = 30;
 
 	var millisecondsUntilLunchTime = millisecondsUntil(getNextLunchtime(hours, minutes));
-	return index(millisecondsUntilLunchTime, { long: true });
-}
 
-return howLongUntilLunch;
+	return React.createElement(
+		'div',
+		{ className: style.goodLunch },
+		millisecondsUntilLunchTime / 1000,
+		' seconds'
+	);
+};
+
+return HowLongTillLunch;
 
 })));
