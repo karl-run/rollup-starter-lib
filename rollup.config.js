@@ -39,10 +39,10 @@ export default [{
     output: {
       name: 'howLongUntilLunchReact',      
       file: pkg.browser,
-      format: 'umd'
-    },
-    globals: {
-      react: 'React'
+      format: 'umd',
+      globals: {
+        react: 'React'
+      }
     },
     plugins: [
       ...commonPlugins,
