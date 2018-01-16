@@ -1,21 +1,30 @@
 'use strict';
 
-function __$styleInject(css, returnValue) {
-  if (typeof document === 'undefined') {
-    return returnValue;
-  }
-  css = css || '';
+function __$$styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
   style.type = 'text/css';
-  head.appendChild(style);
-  
-  if (style.styleSheet){
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
     style.styleSheet.cssText = css;
   } else {
     style.appendChild(document.createTextNode(css));
   }
-  return returnValue;
 }
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -41,7 +50,8 @@ function millisecondsUntil(date) {
 	return date - Date.now();
 }
 
-var style = __$styleInject("._goodLunch_13o6g_1 {\r\n  width: 100px;\r\n  box-shadow: 2px 2px 3px black;\r\n  background-color: hotpink;\r\n}\r\n", { "goodLunch": "_goodLunch_13o6g_1" });
+var css = "._goodLunch_1jy20_1 {\n  width: 100px;\n  box-shadow: 2px 2px 3px black;\n  background-color: hotpink; }\n";
+__$$styleInject(css);
 
 const HowLongTillLunch = ({ hours, minutes }) => {
   if (hours === undefined) hours = 12;
@@ -51,7 +61,7 @@ const HowLongTillLunch = ({ hours, minutes }) => {
 
   return React.createElement(
     'div',
-    { className: style.goodLunch },
+    { className: css.goodLunch },
     millisecondsUntilLunchTime / 1000,
     ' seconds'
   );
