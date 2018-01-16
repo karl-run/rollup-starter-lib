@@ -37,13 +37,13 @@ export default [{
     input: 'src/main.js',
     external: external,
     output: {
+      name: 'howLongUntilLunchReact',      
       file: pkg.browser,
       format: 'umd'
     },
     globals: {
       react: 'React'
     },
-    name: 'howLongUntilLunchReact',
     plugins: [
       ...commonPlugins,
       resolve(), // so Rollup can find `ms`
